@@ -19,6 +19,11 @@ export default defineConfig({
 					collapsed: true,
 				},
 				{
+					label:"设计规约",
+					autogenerate: { directory: "convention" },
+					collapsed: true,
+				},
+				{
 					label: "持续更新中……",
 					link: "",
 				},
