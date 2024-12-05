@@ -14,6 +14,11 @@ export default defineConfig({
 					link: "intro",
 				},
 				{
+					label:"操作系统",
+					autogenerate: { directory: "os" },
+					collapsed: true,
+				},
+				{
 					label: "Starlight 开发实践",
 					autogenerate: { directory: "starlight-dev" },
 					collapsed: true,
