@@ -25,7 +25,7 @@ export default defineConfig({
 				},
 				{
 					label: "持续更新中……",
-					link: "",
+					items:[]
 				},
 			],
 			locales: {
