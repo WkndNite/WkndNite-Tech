@@ -14,8 +14,19 @@ export default defineConfig({
 					link: "intro",
 				},
 				{
-					label:"操作系统",
+					label: "操作系统",
 					autogenerate: { directory: "os" },
+					collapsed: true,
+				},
+				
+				{
+					label: "原则与规约",
+					autogenerate: { directory: "convention" },
+					collapsed: true,
+				},
+				{
+					label: "架构与工具",
+					autogenerate: { directory: "architecture" },
 					collapsed: true,
 				},
 				{
@@ -24,13 +35,8 @@ export default defineConfig({
 					collapsed: true,
 				},
 				{
-					label:"设计规约",
-					autogenerate: { directory: "convention" },
-					collapsed: true,
-				},
-				{
 					label: "持续更新中……",
-					items:[]
+					items: [],
 				},
 			],
 			locales: {
