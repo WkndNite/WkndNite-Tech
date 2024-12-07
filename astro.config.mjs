@@ -18,7 +18,11 @@ export default defineConfig({
 					autogenerate: { directory: "os" },
 					collapsed: true,
 				},
-				
+				{
+					label: "Vue",
+					autogenerate: { directory: "vue" },
+					collapsed: true,
+				},
 				{
 					label: "原则与规约",
 					autogenerate: { directory: "convention" },
