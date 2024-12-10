@@ -15,7 +15,12 @@ export default defineConfig({
 				},
 				{
 					label: "操作系统",
-					autogenerate: { directory: "os" },
+					autogenerate: { directory: "operating-system" },
+					collapsed: true,
+				},
+				{
+					label: "JavaScript",
+					autogenerate: { directory: "javascript" },
 					collapsed: true,
 				},
 				{
