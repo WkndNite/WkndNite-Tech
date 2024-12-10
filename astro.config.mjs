@@ -5,6 +5,7 @@ export default defineConfig({
 	integrations: [
 		starlight({
 			title: "WkndNite Tech",
+			favicon:'/FaWikipediaW.svg',
 			social: {
 				github: "https://github.com/WkndNite",
 			},
