@@ -46,6 +46,11 @@ export default defineConfig({
 					collapsed: true,
 				},
 				{
+					label: "LCDP 开发实践",
+					autogenerate: { directory: "low-code-dev-platform" },
+					collapsed: true,
+				},
+				{
 					label: "持续更新中……",
 					items: [],
 				},
