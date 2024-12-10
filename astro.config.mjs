@@ -5,7 +5,11 @@ export default defineConfig({
 	integrations: [
 		starlight({
 			title: "WkndNite Tech",
-			favicon:'/FaWikipediaW.svg',
+			favicon: "/FaWikipediaW.svg",
+			head: {
+				tag: "title",
+				content: "浮点世界",
+			},
 			social: {
 				github: "https://github.com/WkndNite",
 			},
