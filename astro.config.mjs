@@ -6,10 +6,7 @@ export default defineConfig({
 		starlight({
 			title: "WkndNite Tech",
 			favicon: "/FaWikipediaW.svg",
-			head: {
-				tag: "title",
-				content: "浮点世界",
-			},
+			head: [{ tag: "title", content: "浮点世界" }],
 			social: {
 				github: "https://github.com/WkndNite",
 			},
