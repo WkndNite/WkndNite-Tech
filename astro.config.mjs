@@ -36,7 +36,7 @@ export default defineConfig({
 					collapsed: true,
 				},
 				{
-					label: "架构与工具",
+					label: "前端工程化",
 					autogenerate: { directory: "architecture" },
 					collapsed: true,
 				},
