@@ -39,11 +39,44 @@ sidebar:
 
 ## 如何使用约定式提交
 
+对于约定式提交的使用有很多渠道，包括但不限于 commitlint、commitizen、husky 等。这里介绍我开发过程中自己使用的偏好。
 
-### Commitizen
+### cz-vinyl
 
+cz-vinyl 是一个基于 [cz-customizable](https://github.com/leonardoanalista/cz-customizable) 的 commitizen 插件，它提供了一套自定义的提交信息模板，可以满足大部分的开发需求。
 
 ```bash
-# 安装 commitizen
-npm install -g commitizen
+npm install -g cz-vinyl
 ```
+
+```
+//.czrc
+// 全局配置"C:\Users\lenovo\.czrc"
+{ "path": "cz-vinyl" }
+```
+
+![cz-conventional-changelog](@src/assets/convention/cz-conventional-changelog.png)
+![cz-vinyl](@src/assets/convention/cz-vinyl.png)
+
+:::note
+cz-vinyl 只不过是一个提交的模板，其本质还是在 Commitizen 工具上构建的。上面展示了只用最基础的 Commitizen 提交和用 cz-vinyl 提交的界面，至于命令行里显示的信息，可以参考对应配置。前者在官方有详细的项目配置介绍，后者我进行了全局配置（图方便的懒人）。
+:::
+
+### CodeGeex
+
+用 VS Code 开发过程中，可以借助 AI 插件 CodeGeex 智能生成 Commit Message。若想要生成以上风格的提交信息，需要修改插件设置：
+
+```json title="settings.json"
+{
+	"otherOptions": "otherValues",
+	"Codegeex.CommitMessage.LanguagePreference": "English",
+	"Codegeex.CommitMessageStyle": "ConventionalCommits"
+}
+```
+
+之后就可以在侧边栏的源代码管理中点击 CodeGeex 的 Logo 生成 Commit Message，等待几秒就可以提交 and 同步啦。
+
+### Chrome Extension — Refined Github
+Refined Github 是一个 Chrome 插件，可以美化 GitHub 的界面，因此可以帮助你更好地浏览你的提交记录。
+
+![refined-github](@src/assets/convention/refined-github.png)
