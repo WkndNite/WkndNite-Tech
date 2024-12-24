@@ -1,0 +1,455 @@
+---
+title: 更友好的界面
+description: 更友好的界面
+sidebar:
+    order: 4
+---
+
+创作过程只有文字形式可不是很好玩，所以我们需要各种途径美化一下视觉效果。当然，Starlight 支持使用 MDX 和 Markdoc 文件中的组件，并提供了一些常用组件供你使用。
+
+:::note
+本页面一些效果既可以通过语法实现，也可以引入组件实现，比如你正在阅读的旁白效果。
+:::
+
+## 写作语法
+
+---
+
+### Markdown / MDX 语法
+
+Markdown 是一种轻量级标记语言，它允许你使用纯文本格式来编写文档。MDX 是它的扩展语法，允许你在 Markdown 文档中使用 JSX 语法来编写组件。因此在二者文件内部都可以使用 markdown 语法引入代码块、列表、链接、引用区域、图片等。对 Markdown 语法不熟悉的同学可以参考 [Markdown 语法](https://markdown.com.cn/basic-syntax/)。而对于二者对组件的使用却各不相同，在组件部分我会详细阐述。
+
+:::note
+Starlight 集成了实验性 Markdoc 支持，但我不予以讨论。
+:::
+
+### 代码块
+
+至于为什么我要单独讲一下代码块部分，Starlight 通过插件集成可以让你在 Markdown 默认的代码块语法里进行文本标记和窗口配置。
+
+```js title="代码块" {1-1} {3-4} "某个词语" /正.*式/ ins="插入词语" del="删除词语"
+console.log("这里是标记一行文本的演示");
+
+console.log("这里是标记多行文本的演示");
+console.log("这里是标记多行文本的演示");
+
+console.warn("这里是标记某个词语的演示，也可以设置正则表达式");
+console.log("这里是插入词语或删除词语的演示");
+```
+
+```diff lang="js"
++	console.log("这里是插入一行文本的演示");
+-	console.log("这里是删除一行文本的演示");
+```
+
+```bash title="终端窗口"
+echo "这里是终端窗口的演示 用于和下面进行对比"
+```
+
+```bash frame="none"
+echo "这个代码块即使使用了 bash 语言也不会被显示成终端窗口"
+```
+
+并附上实现以上效果的代码：
+
+````mdx
+```js title="代码块" {1-1} {3-4} "某个词语" /正.*式/ ins="插入词语" del="删除词语"
+console.log("这里是标记一行文本的演示");
+
+console.log("这里是标记多行文本的演示");
+console.log("这里是标记多行文本的演示");
+
+console.warn("这里是标记某个词语的演示，也可以设置正则表达式");
+console.log("这里是插入词语或删除词语的演示");
+```
+````
+
+````mdx
+```diff lang="js"
++	console.log("这里是插入一行文本的演示");
+-	console.log("这里是删除一行文本的演示");
+```
+````
+
+````mdx
+```bash title="终端窗口"
+echo "这里是终端窗口的演示 用于和下面进行对比"
+```
+````
+
+````mdx
+```bash frame="none"
+echo "这个代码块即使使用了 bash 语言也不会被显示成终端窗口"
+```
+````
+
+### 旁白
+
+旁白（也称为“警告”或“标注”）对于在页面的主要内容旁边显示辅助信息很有用。
+
+Starlight 提供了一个自定义的 Markdown 语法来渲染旁白。旁白块使用一对三个冒号 ::: 来包裹你的内容，并且可以是 note，tip，caution 或 danger 类型。
+
+你可以在旁白中嵌套任何其他 Markdown 内容类型，但旁白最适合用于简短而简洁的内容块。
+
+:::note
+这里是一个 note 类型的旁白。
+:::
+
+:::tip
+这里是一个 tip 类型的旁白。
+:::
+
+:::caution
+这里是一个 caution 类型的旁白。
+:::
+
+:::danger
+这里是一个 danger 类型的旁白。
+:::
+
+:::tip[自定义]
+这里是一个自定义标题的旁白
+:::
+
+## 组件使用
+
+---
+
+### 组件使用的配置
+
+因为本网站不讨论对 Markdoc 的支持，因此对于想要使用组件的部分，请将文件格式设置为 `.mdx`，这样就可以通过简单的 ESM 语法使用组件了。
+
+:::note
+由于 Starlight 由 Astro 提供支持，因此你可以在 MDX 文件中添加由 受支持的 UI 框架（React、Preact、Svelte、Vue、Solid 和 Alpine） 构建的组件。
+:::
+
+### 卡片
+
+```mdx
+import { Card } from "@astrojs/starlight/components";
+
+<Card title="星星" icon="star">
+	天狼星，织女星，参宿四
+</Card>
+```
+
+import { Card } from "@astrojs/starlight/components";
+
+<Card title="星星" icon="star">
+	天狼星，织女星，参宿四
+</Card>
+
+### 链接卡片
+
+```mdx
+import { LinkCard } from "@astrojs/starlight/components";
+
+<LinkCard
+	title="Github"
+	href="https://github.com/WkndNite/WkndNite-Tech"
+	description="路过的好心人进来点点star"
+/>
+```
+
+import { LinkCard } from "@astrojs/starlight/components";
+
+<LinkCard
+	title="Github"
+	href="https://github.com/WkndNite/WkndNite-Tech"
+	description="路过的好心人进来点点star"
+/>
+
+### 卡片网格布局
+
+```mdx
+import { Card, CardGrid } from "@astrojs/starlight/components";
+
+<CardGrid>
+	<Card title="试试这个" icon="open-book">
+		一些你想着重展示的有趣内容
+	</Card>
+	<Card title="其他功能" icon="information">
+		更多你想分享的信息
+	</Card>
+	<LinkCard title="Markdown 创作" href="https://markdown.com.cn/" />
+	<LinkCard
+		title="组件"
+		href="https://starlight.astro.build/zh-cn/components/using-components/"
+	/>
+</CardGrid>
+```
+
+import { CardGrid } from "@astrojs/starlight/components";
+
+<CardGrid>
+	<Card title="试试这个" icon="open-book">
+		一些你想着重展示的有趣内容
+	</Card>
+	<Card title="其他功能" icon="information">
+		更多你想分享的信息
+	</Card>
+	<LinkCard title="Markdown 创作" href="https://markdown.com.cn/" />
+	<LinkCard
+		title="组件"
+		href="https://starlight.astro.build/zh-cn/components/using-components/"
+	/>
+</CardGrid>
+
+:::tip
+你可以在 CardGrid 标签内部添加 stagger 达到交错布局的效果
+:::
+
+### 旁白组件
+
+````mdx
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="自定义标题">一些在旁白中的内容。</Aside>
+<Aside type="caution">一些警示内容。</Aside>
+<Aside type="danger">不要将你的密码告诉任何人。</Aside>
+
+<Aside type="tip">旁白中还支持其他内容。 ```js // 例如，代码片段。 ```</Aside>
+````
+
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside title="自定义标题">一些在旁白中的内容。</Aside>
+<Aside type="caution">一些警示内容。</Aside>
+<Aside type="danger">不要将你的密码告诉任何人。</Aside>
+
+<Aside type="tip">旁白中还支持其他内容。 ```js // 例如，代码片段。 ```</Aside>
+
+### 徽章
+
+import { Badge } from "@astrojs/starlight/components";
+
+<Badge text="注释" variant="note" size="small" />
+<Badge text="成功" variant="success" size="medium" />
+<Badge text="提示" variant="tip" size="large" />
+<Badge text="注意" variant="caution" style={{ fontStyle: "italic" }} />
+<Badge text="危险" variant="danger" />
+<Badge text="默认" variant="default" />
+
+### 代码块
+
+```mdx
+import { Code } from "@astrojs/starlight/components";
+import importedCode from "/src/env.d.ts?raw";
+
+export const exampleCode = `这是最简易的代码块`;
+export const fileName = "example.js";
+export const highlights = ["代码块"];
+
+<Code code={exampleCode} mark={highlights} />
+<Code code={exampleCode} frame="terminal" />
+<Code code={importedCode} lang="js" title={fileName} mark={highlights} />
+<Code
+	code={
+		"你有这么高速运转的机械进入中国，记住我给出的原理，小的时候，就是研发人，就研发这个东西的原理是阴间政权管。你知道为为什么有生灵给他运转先位，还有还有专门饲养这个，为什么地下产这种东西，他管着他是五世同堂旗下子孙，我你以为我跟你闹着玩呢，黄龙江一派全都带蓝牙。"
+	}
+	ins={1}
+/>
+<Code
+	code={
+		"你有这么高速运转的机械进入中国，记住我给出的原理，小的时候，就是研发人，就研发这个东西的原理是阴间政权管。\
+		你知道为为什么有生灵给他运转先位，还有还有专门饲养这个，为什么地下产这种东西，他管着他是五世同堂旗下子孙，我你以为我跟你闹着玩呢，黄龙江一派全都带蓝牙。"
+	}
+	wrap="true"
+	del={1}
+/>
+```
+
+import { Code } from "@astrojs/starlight/components";
+import importedCode from "/src/env.d.ts?raw";
+
+export const exampleCode = `这是最简易的代码块`;
+export const fileName = "example.js";
+export const highlights = ["代码块"];
+
+<Code code={exampleCode} mark={highlights} />
+<Code code={exampleCode} frame="terminal" />
+<Code code={importedCode} lang="js" title={fileName} mark={highlights} />
+<Code
+	code={
+		"你有这么高速运转的机械进入中国，记住我给出的原理，小的时候，就是研发人，就研发这个东西的原理是阴间政权管。你知道为为什么有生灵给他运转先位，还有还有专门饲养这个，为什么地下产这种东西，他管着他是五世同堂旗下子孙，我你以为我跟你闹着玩呢，黄龙江一派全都带蓝牙。"
+	}
+	ins={1}
+/>
+<Code
+	code={
+		"你有这么高速运转的机械进入中国，记住我给出的原理，小的时候，就是研发人，就研发这个东西的原理是阴间政权管。\
+		你知道为为什么有生灵给他运转先位，还有还有专门饲养这个，为什么地下产这种东西，他管着他是五世同堂旗下子孙，我你以为我跟你闹着玩呢，黄龙江一派全都带蓝牙。"
+	}
+	wrap="true"
+	del={1}
+/>
+### 文件树
+
+```mdx
+import { FileTree } from "@astrojs/starlight/components";
+<FileTree>
+
+-   astro.config.mjs
+-   package.json
+-   src
+    -   components
+        -   **Header.astro** 一个 **重要** 文件
+        -   Title.astro
+    -   pages/
+    -   ... 占位
+
+</FileTree>
+```
+
+import { FileTree } from "@astrojs/starlight/components";
+
+<FileTree>
+
+-   astro.config.mjs
+-   package.json
+-   src
+    -   components
+        -   **Header.astro** 一个 **重要** 文件
+        -   Title.astro
+    -   pages/
+    -   ... 占位
+
+</FileTree>
+
+### 图标
+
+```mdx
+import { Icon } from "@astrojs/starlight/components";
+
+<Icon name="star" />
+<Icon name="starlight" label="Starlight 的 logo" />
+<Icon name="star" color="goldenrod" size="2rem" />
+<Icon name="rocket" color="var(--sl-color-text-accent)" />
+```
+
+import { Icon } from "@astrojs/starlight/components";
+
+<Icon name="star" />
+<Icon name="starlight" label="Starlight 的 logo" />
+<Icon name="star" color="goldenrod" size="2rem" />
+<Icon name="rocket" color="var(--sl-color-text-accent)" />
+
+:::caution
+当未设置 label 时，该图标将在无障碍下完全隐藏。 在这种情况下，请确保在没有图标的情况下，上下文仍然可以理解。 例如，仅具有图标的链接 必须 包含 label 属性才能易于识读，但如果链接已经包含了文本，并且图标纯粹是装饰性的，那么省略 label 也许更有意义。
+:::
+
+### 链接按钮
+
+```mdx
+import { LinkButton } from "@astrojs/starlight/components";
+
+<LinkButton href="https://starlight.astro.build/" icon="right-arrow">
+	开始使用
+</LinkButton>
+<LinkButton
+	href="https://starlight.astro.build/zh-cn/reference/configuration/"
+	variant="secondary"
+>
+	配置参考
+</LinkButton>
+<LinkButton
+	href="https://docs.astro.build"
+	variant="minimal"
+	icon="external"
+	iconPlacement="end"
+>
+	有关内容：Astro
+</LinkButton>
+```
+
+import { LinkButton } from "@astrojs/starlight/components";
+
+<LinkButton href="https://starlight.astro.build/" icon="right-arrow">
+	开始使用
+</LinkButton>
+<LinkButton
+	href="https://starlight.astro.build/zh-cn/reference/configuration/"
+	variant="secondary"
+>
+	配置参考
+</LinkButton>
+<LinkButton
+	href="https://docs.astro.build"
+	variant="minimal"
+	icon="external"
+	iconPlacement="end"
+>
+	有关内容：Astro
+</LinkButton>
+### 步骤
+
+````mdx
+import { Steps } from "@astrojs/starlight/components";
+
+<Steps>
+
+1. 将组件导入到 MDX 文件中：
+
+    ```js
+    import { Steps } from "@astrojs/starlight/components";
+    ```
+
+2. 用 `<Steps>` 将你的有序列表包裹起来。
+
+</Steps>
+````
+
+import { Steps } from "@astrojs/starlight/components";
+
+<Steps>
+
+1. 将组件导入到 MDX 文件中：
+
+    ```js
+    import { Steps } from "@astrojs/starlight/components";
+    ```
+
+2. 用 `<Steps>` 将你的有序列表包裹起来。
+
+</Steps>
+### 选项卡
+
+```mdx
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+<Tabs>
+	<TabItem label="恒星" icon="star">
+		天狼星，织女星，参宿四
+	</TabItem>
+	<TabItem label="卫星" icon="moon">
+		木卫一，木卫二，木卫三
+	</TabItem>
+</Tabs>
+<Tabs syncKey="星座">
+	<TabItem label="猎户座">参宿五，参宿七，参宿四</TabItem>
+	<TabItem label="双子座">北河三，北河二 A，北河二 B</TabItem>
+</Tabs>
+<Tabs syncKey="星座">
+	<TabItem label="猎户座">HD 34445 b，格利泽 179b，Wasp-82 b</TabItem>
+	<TabItem label="双子座">北河三 b，HAT-P-24b，HD 50554 b</TabItem>
+</Tabs>
+```
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+<Tabs>
+	<TabItem label="恒星" icon="star">
+		天狼星，织女星，参宿四
+	</TabItem>
+	<TabItem label="卫星" icon="moon">
+		木卫一，木卫二，木卫三
+	</TabItem>
+</Tabs>
+<Tabs syncKey="星座">
+	<TabItem label="猎户座">参宿五，参宿七，参宿四</TabItem>
+	<TabItem label="双子座">北河三，北河二 A，北河二 B</TabItem>
+</Tabs>
+<Tabs syncKey="星座">
+	<TabItem label="猎户座">HD 34445 b，格利泽 179b，Wasp-82 b</TabItem>
+	<TabItem label="双子座">北河三 b，HAT-P-24b，HD 50554 b</TabItem>
+</Tabs>

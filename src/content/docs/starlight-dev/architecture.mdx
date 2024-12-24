@@ -1,0 +1,34 @@
+---
+title: 项目结构
+description: 项目结构的搭建
+sidebar:
+    order: 2
+---
+
+你现在所在的网站就是利用 Astro + Starlight + Docs Template 所搭建的，本专栏将详细记录我在开发这个网站时的所做所想，以及如何使用这些工具来搭建一个文档网站。这一期，我们将从项目结构开始。
+
+import { FileTree } from "@astrojs/starlight/components";
+
+<FileTree>
+
+-   .astro/ # Astro 构建时生成的缓存文件
+-   .history/ # 历史记录目录 (由 VSCode 插件 Local History 生成)
+-   .vscode/ # VSCode 配置文件目录
+-   node_modules/ # 项目依赖模块
+-   public/ # 静态资源目录，存放站点公用的资源
+-   src/ # 项目主要代码目录
+    -   assets/ # 静态资源
+    -   content/
+        -   docs/ # 文档存放的地方
+        -   config.ts # 文档配置文件
+    -   env.d.ts # 环境类型声明文件
+-   astro.config.mjs # Astro 配置文件
+-   package.json # 项目依赖和脚本管理
+-   package-lock.json # 项目依赖版本锁定
+-   README.md # 项目说明文档
+-   tsconfig.json # TypeScript 配置
+-   .gitignore # Git 忽略文件
+
+</FileTree>
+
+相信现在项目结构里文件用途已经掌握了，接下来可以正式开启文档编写来搭建一个完整的网站了！
