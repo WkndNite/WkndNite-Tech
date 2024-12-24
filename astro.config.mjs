@@ -1,11 +1,15 @@
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 import starlightImageZoom from "starlight-image-zoom";
+import catppuccin from "starlight-theme-catppuccin";
 
 export default defineConfig({
 	integrations: [
 		starlight({
-			plugins: [starlightImageZoom()],
+			plugins: [
+				starlightImageZoom(),
+				catppuccin({ dark: "macchiato-sky", light: "latte-sky" }),
+			],
 			title: "WkndNite Tech",
 			favicon: "/site-logo.svg",
 			head: [{ tag: "title", content: "浮点世界" }],
@@ -23,7 +27,7 @@ export default defineConfig({
 					collapsed: true,
 				},
 				{
-					label:"CSS",
+					label: "CSS",
 					autogenerate: { directory: "css" },
 					collapsed: true,
 				},
