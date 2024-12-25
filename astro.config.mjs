@@ -2,13 +2,25 @@ import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 import starlightImageZoom from "starlight-image-zoom";
 import catppuccin from "starlight-theme-catppuccin";
-
+import starlightViewModes from "starlight-view-modes";
 export default defineConfig({
 	integrations: [
 		starlight({
 			plugins: [
 				starlightImageZoom(),
 				catppuccin({ dark: "macchiato-sky", light: "latte-sky" }),
+				starlightViewModes({
+                    zenModeEnabled: true,
+                    zenModeCloseButtonPosition: "top-right",
+                    zenModeShowHeader: false,
+                    zenModeShowSidebar: false,
+                    zenModeShowTableOfContents: true,
+                    zenModeShowFooter: true,
+                    zenModeShowSwitchInHeader: true,
+                    zenModeShowSwitchInHeaderMobile: true,
+                    zenModeShowSwitchInTableOfContents: false,
+					presentationModeShowSwitchInHeader:false,
+                }),
 			],
 			title: "WkndNite Tech",
 			favicon: "/site-logo.svg",

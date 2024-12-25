@@ -11,6 +11,7 @@
   "dependencies": {
     "astro": "^5.1.1",
     "starlight-image-zoom": "^0.10.0",
-    "starlight-theme-catppuccin": "^2.0.0"
+    "starlight-theme-catppuccin": "^2.0.0",
+    "starlight-view-modes": "^0.7.0"
   }
 }
