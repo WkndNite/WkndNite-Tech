@@ -8,7 +8,7 @@ export default defineConfig({
 		starlight({
 			plugins: [
 				starlightImageZoom(),
-				catppuccin({ dark: "macchiato-sky", light: "latte-sky" }),
+				catppuccin({ dark: "mocha-blue", light: "latte-blue" }),
 				starlightViewModes({
                     zenModeEnabled: true,
                     zenModeCloseButtonPosition: "top-right",
