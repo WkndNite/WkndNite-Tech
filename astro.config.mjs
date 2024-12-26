@@ -60,7 +60,12 @@ export default defineConfig({
 				},
 				{
 					label: "前端工程化",
-					autogenerate: { directory: "architecture" },
+					autogenerate: { directory: "frontend-engineering" },
+					collapsed: true,
+				},
+				{
+					label: "软件架构",
+					autogenerate: { directory: "software-architecture" },
 					collapsed: true,
 				},
 				{
