@@ -4,3 +4,135 @@ description: Docker 网络
 sidebar:
     order: 3
 ---
+
+## Docker 网络概述
+
+---
+
+Docker 提供了多种网络模式，以满足不同的应用需求。主要的网络模式包括：
+
+-   **bridge**：默认的网络模式，适用于大多数应用场景。
+-   **host**：容器与宿主机共享网络命名空间。
+-   **none**：容器没有网络连接。
+-   **overlay**：用于跨主机的容器通信。
+-   **macvlan**：允许容器拥有自己的 MAC 地址。
+
+## 网络实践
+
+---
+
+### 容器之间之间 Ping 通
+
+首先我们准备两个 tomcat 的容器，然后进入容器内部安装 iproute2 和 iputils-ping 来为后续操作提供支持。
+
+当然，安装的过程可能比较漫长，**你也可以直接封装一个带有这些安装包的镜像**，这样就不需要重复安装了。
+
+```bash
+docker pull tomcat
+docker run -d -P --name tomcat-01 tomcat
+docker run -d -P --name tomcat-02  tomcat
+# 进入容器 1
+docker exec -it tomcat-01 bash
+apt-get update
+apt-get install iproute2
+apt-get install iputils-ping
+# 进入容器 2
+docker exec -it tomcat-02 bash
+apt-get update
+apt-get install iproute2
+apt-get install iputils-ping
+```
+
+然后，我们进入两个容器内部，查看容器的 ip 地址。
+
+```bash
+docker exec -it tomcat-01 bash -c "ip addr"
+docker exec -it tomcat-02 bash -c "ip addr"
+```
+
+![Tomcat 容器获取各自ip](@src/assets/docker/tomcat-container-ip.png)
+
+如上图，我们可以得到到两个容器的 ip 地址，分别是 172.17.0.2 和 172.17.0.3。
+
+然后我们分别在两个容器内部 ping 对方的 ip 地址，看是否能够 ping 通。
+
+```bash
+# 在容器 1 内 ping 容器 2
+docker exec -it tomcat-01 bash -c "ping -c 3 172.17.0.3"
+# 在容器 2 内 ping 容器 1
+docker exec -it tomcat-02 bash -c "ping -c 3 172.17.0.2"
+```
+
+![Tomcat 容器之间 ping 通](@src/assets/docker/tomcat-container-ping.png)
+
+如上图，我们可以看到两个容器之间是可以 ping 通的。
+
+### 容器与宿主机之间 Ping 通
+
+首先我们先检查一下宿主机的 ip 地址。
+
+```bash
+ip addr
+```
+
+![宿主机ip](@src/assets/docker/host-ip.png)
+
+如上图，我们可以看到宿主机的 ip 地址是 172.30.150.182。接下来我们分别在两个容器内部 ping 宿主机的 ip 地址，并在宿主机对容器的 ip 地址进行 ping 操作。
+
+```bash
+docker exec -it tomcat-01 bash -c "ping -c 3 172.30.150.182"
+docker exec -it tomcat-02 bash -c "ping -c 3 172.30.150.182"
+ping -c 3 172.17.0.2
+ping -c 3 172.17.0.3
+```
+
+![Tomcat 容器与宿主机之间 ping 通](@src/assets/docker/tomcat-container-host-ping.png)
+
+如上图，我们可以看到容器与宿主机之间也是可以 ping 通的。
+
+### 插曲——原理
+
+观察前面给出的宿主机在执行 `ip addr` 命令后的输出，第一个是 lo 接口，第二个是 eth0 接口，第三个是 docker0 接口，第四个是 br 接口，第五个是 veth@37 接口，第六个是 veth@39 接口。分别代表了什么意思呢？
+
+-   lo 接口：本地回环接口，用于本地通信。
+-   eth0 接口：宿主机的物理网卡接口。
+-   docker0 接口：Docker 的默认网桥，用于连接容器。
+-   br 接口：桥接接口，用于连接容器。
+-   veth@37 接口：虚拟以太网接口，用于连接容器和网桥。
+-   veth@39 接口：虚拟以太网接口，用于连接容器和网桥。
+
+其实观察前面的图你就会明白，最后两个接口分别对应着 tomcat-01 和 tomcat-02 两个容器。此处的 br 接口，是因为我在我的服务器上还运行着另外一个容器——Harbor。那么，我们怎么得知这些接口情况呢？
+
+```bash
+docker network ls
+```
+
+![Docker 网络列表](@src/assets/docker/docker-network-list.png)
+
+看上面这张图，在对应前面宿主机的 ip 图，是不是就明白 br 接口对应哪个容器了呢？
+
+### Ping 的时候可以用容器名吗？
+
+还是用之前的容器来举例，记不住容器的 ip 地址，但是记住了容器的名字，那么我们怎么 ping 呢？
+
+```bash
+docker exec -it tomcat-01 bash -c "ping -c 3 tomcat-02"
+# ping: tomcat-02: Name or service not known
+docker exec -it tomcat-02 bash -c "ping -c 3 tomcat-01"
+# ping: tomcat-01: Name or service not known
+```
+
+如上图，我们可以看到，在容器内部 ping 容器名是 ping 不通的。那么，我们怎么解决呢？此时，我们会引入 `--link` 参数。
+
+```bash
+docker run -d -P --name tomcat-03 --link tomcat-01 tomcat
+docker exec -it tomcat-03 bash -c "apt-get update && apt-get install iproute2 iputils-ping -y"
+docker exec -it tomcat-03 bash -c "ping -c 3 tomcat-01"
+docker exec -it tomcat-01 bash -c "ping -c 3 tomcat-03"
+```
+
+![--link 参数](@src/assets/docker/docker-container-link.png)
+
+:::note
+--link 参数的作用是让容器之间能够互相通信，但是只能做到单向通信，即容器 1 可以 ping 容器 2，但是容器 2 不能 ping 容器 1。究其本质，其实是通过--link 可以在容器的 hosts 文件中添加一条记录，我们也可以进入容器内部通过 `cat /etc/hosts` 命令查看。
+:::
