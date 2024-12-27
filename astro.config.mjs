@@ -22,6 +22,7 @@ export default defineConfig({
 					presentationModeShowSwitchInHeader:false,
                 }),
 			],
+			tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 4 },
 			title: "WkndNite Tech",
 			favicon: "/site-logo.svg",
 			head: [{ tag: "title", content: "浮点世界" }],
@@ -83,11 +84,11 @@ export default defineConfig({
 					autogenerate: { directory: "low-code-dev-platform" },
 					collapsed: true,
 				},
-				// {
-				// 	label:"VS Code 插件开发",
-				// 	autogenerate: { directory: "vsc-extension" },
-				// 	collapsed: true,
-				// },
+				{
+					label:"VS Code 插件开发",
+					autogenerate: { directory: "vsc-extension" },
+					collapsed: true,
+				},
 				{
 					label: "持续更新中……",
 					items: [],
