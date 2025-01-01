@@ -1,0 +1,20 @@
+---
+title: 一些容易被忽视的细节
+description: 一些容易被忽视的细节
+sidebar:
+    order: 0
+---
+
+下面展示了一些容易被忽视的基础部分的 Js 知识。
+
+## 逗号运算符
+
+```js
+let x = 1;
+x = x++ * 2, x++ * 2, x++ * 2;
+console.log(x); // 4
+
+let y = 1;
+y = (y++ * 2, y++ * 2, y++ * 2);
+console.log(y); // 6
+```
