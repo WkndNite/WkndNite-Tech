@@ -22,7 +22,7 @@ export default defineConfig({
 					presentationModeShowSwitchInHeader:false,
                 }),
 			],
-			tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 4 },
+			tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 3 },
 			title: "WkndNite Tech",
 			favicon: "/site-logo.svg",
 			head: [{ tag: "title", content: "浮点世界" }],
