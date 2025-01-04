@@ -120,7 +120,7 @@ git push # 推送代码到远程仓库
 
 ---
 
-1. `git switch` 和 `git restore` 命令是在 Git 2.23 版本中引入的，用来替代 `git checkout` 命令。`git switch` 命令用来切换分支，`git restore` 命令用来恢复文件。至于他们为什么会来出现替代，这和 `git checkout` 职责过重有关。之后有空的话，我会再补充进行介绍。
+1. `git switch` 和 `git restore` 命令是在 Git 2.23 版本中引入的，用来替代 `git checkout` 命令。
 
     ```bash
     git switch another_branch
@@ -138,7 +138,7 @@ git push # 推送代码到远程仓库
     git restore --staged --worktree file # 丢弃
     ```
 
-2. `git worktree` 命令是在 Git 2.5 版本中引入的，用来管理多个工作目录。
+2. `git worktree` 命令是在 Git 2.5 版本中引入的，用来管理多个工作目录下的多个分支，开发者可以借助这个命令同时开发多个分支。
 
     ```bash
     git worktree add dir_path another_branch
@@ -147,11 +147,65 @@ git push # 推送代码到远程仓库
     git worktree move old_dir_path new_dir_path
     ```
 
+3. `git sparse-checkout` 命令是在 Git 2.25 版本中引入的，用来配置仓库的工作区，可以通过这个命令只拉取仓库的部分文件。其中，set 命令之后可以列出多个你想要检索拉取的路径，也可以分多次调用。
+
+    ```bash
+    git sparse-checkout init # 启用 sparse-checkout
+    git sparse-checkout set dir/
+    git sparse-checkout  list
+    git sparse-checkout add dir/
+    git sparse-checkout disable
+    ```
+
+4. `git range-diff` 命令是在 Git 2.19 版本中引入的，用来比较两个 commit 之间的差异。
+
+    ```bash
+    git range-diff A~n..A B~n..B # 比较i两个分支上的最近的 n 个提交
+    git range-diff A..B C..D # 更常见的用法 直接指定两个范围
+    ```
+
+5. `git maintenance` 命令是在 Git 2.30 版本引入的，用于管理和自动化各种维护任务的命令，通过一组预定义的任务来帮助保持仓库的健康状态和高性能。
+
+    - gc 执行完整的垃圾收集 包括压缩对象数据库
+    - commit-graph 构建或更新提交图文件以加速提交历史查询
+    - loose-objects 清理松散对象并将其打包
+    - incremental-repack 逐步重新打包对象以优化存储
+    - prefetch 预先获取远程分支的新数据 以加速未来的克隆和拉取操作
+
+    ```bash
+    git maintenance start # 启用自动维护
+    git maintenance stop # 禁用自动维护
+    git maintenance run # 执行所有配置的维护任务
+    git maintenance run --task=gc # 执行指定的维护任务
+    git maintenance start --schedule=daily # 定时执行维护任务
+    ```
+
+    也可以将维护任务配置到 `.git/config` 文件中。
+
+    ```bash
+    [maintenance "daily"]
+        task = prefetch
+        task = loose-objects
+    [maintenance "hourly"]
+        task = commit-graph
+    [maintenance "weekly"]
+        task = incremental-repack
+    [maintenance "monthly"]
+        task = gc
+    ```
+
+6. `git log --remerge-diff` 命令是在 Git 2.35 版本中引入的，通过重播记录的合并策略重建合并提交，并展示该合并引入的确切更改。这对于调试合并冲突或审查复杂的合并历史非常有用。
+
+    ```bash
+    git log --remerge-diff
+    ```
+
 ## 推荐操作 :badge[recommend]{variant=caution}
 
 ---
 
-1. 能使用新命令的时候尽量使用新命令，新命令更加安全、高效。
+1. 能使用新命令的时候尽量使用新命令，新命令更加安全、高效。比如分支的切换，可以使用 `git switch` 命令代替 `git checkout` 命令。
+
 2. 关于代码拉取
    `git pull` 命令会使得提交历史变得混乱，原因是 `git pull` 命令实际上是 `git fetch` 和 `git merge` 命令的组合。为了使提交历史记录维持线性，推荐使用 `git pull --rebase` 命令。
 
@@ -161,3 +215,5 @@ git push # 推送代码到远程仓库
 
 3. 能进行命令行操作就尽量不要使用 UI 界面，尤其是你不太了解 Git 命令的时候。
 4. 能进行细粒度操作就尽量不要进行粗粒度操作，比如 `git add .` 命令会将所有文件添加到暂存区，但是可以通过 `git add file` 命令将指定文件添加到暂存区。
+5. 团队合作的时候，尽量不要涉及风险操作，比如强制推送、回退版本、栈空间暂存更改等。
+6. 协同开发的过程，提交消息格式尽量统一，可以自己定制，也可以使用Conventional Commit，方便别人能看懂你的提交记录。
