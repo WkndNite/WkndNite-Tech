@@ -1,0 +1,36 @@
+---
+title: 对 src 目录的理解
+description: 对 src 目录的理解
+sidebar:
+    order: 1
+---
+
+这一篇文章将介绍一下 SoybeanAdmin 的 src 目录结构，以及各个文件夹的作用。
+
+## 根网页文件
+
+`index.html` 是项目的根网页文件，它是项目的入口文件，所有的页面都是在这个文件中渲染的。
+
+```html
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="icon" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="color-scheme" content="light dark" />
+		<title>%VITE_APP_TITLE%</title>
+	</head>
+	<body>
+		<div id="app"></div>
+		<script type="module" src="/src/main.ts"></script>
+	</body>
+</html>
+```
+
+-   meta 标签中的 color-scheme 属性指定了文档的颜色方案，light dark 指定了文档的颜色方案为明暗模式。
+-   title 标签指定了文档的标题，%VITE_APP_TITLE% 是一个占位符，它会被 Vite 替换为项目的标题，这个变量在 `.env` 文件中定义。
+
+## src 目录
+
+
