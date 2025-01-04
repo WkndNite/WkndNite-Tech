@@ -116,6 +116,12 @@ git push # 推送代码到远程仓库
     git stash pop
     ```
 
+10. 在和远程仓库交互的过程中，我们可能会遇到**分支跟踪**的问题，可能在你拉取的时候，也可能在你推送的时候。建议提前设置分支跟踪。
+
+    ```bash
+    git branch --set-upstream-to=origin/remote_branch local_branch
+    ```
+
 ## 新的 Git 命令
 
 ---
@@ -213,6 +219,13 @@ git push # 推送代码到远程仓库
     :::note
     在变基之前，本地的文件是不可以有变更的。如果有的话，可以通过 `git stash` 命令暂存变更货在合适的情况下直接提交或删除变更内容。
     :::
+
+    为了方便你的操作，可以直接将变基拉取设置为默认行为。
+
+    ```bash
+    git config --global pull.rebase true
+    git config --global rebase.autoStash true
+    ```
 
 3. 能进行命令行操作就尽量不要使用 UI 界面，尤其是你不太了解 Git 命令的时候。
 4. 能进行细粒度操作就尽量不要进行粗粒度操作，比如 `git add .` 命令会将所有文件添加到暂存区，但是可以通过 `git add file` 命令将指定文件添加到暂存区。
