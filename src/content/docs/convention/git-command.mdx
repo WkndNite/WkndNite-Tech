@@ -128,6 +128,7 @@ git push # 推送代码到远程仓库
     git switch -c new_branch --track origin/remote_branch
     git switch - # 切换到上一个分支
     ```
+
     ```bash
     git restore file
     git restore --source=commit_id file
@@ -137,13 +138,22 @@ git push # 推送代码到远程仓库
     git restore --staged --worktree file # 丢弃
     ```
 
+2. `git worktree` 命令是在 Git 2.5 版本中引入的，用来管理多个工作目录。
+
+    ```bash
+    git worktree add dir_path another_branch
+    git worktree list
+    git worktree remove dir_path
+    git worktree move old_dir_path new_dir_path
+    ```
+
 ## 推荐操作 :badge[recommend]{variant=caution}
 
 ---
 
 1. 能使用新命令的时候尽量使用新命令，新命令更加安全、高效。
 2. 关于代码拉取
-    `git pull` 命令会使得提交历史变得混乱，原因是 `git pull` 命令实际上是 `git fetch` 和 `git merge` 命令的组合。为了使提交历史记录维持线性，推荐使用 `git pull --rebase` 命令。
+   `git pull` 命令会使得提交历史变得混乱，原因是 `git pull` 命令实际上是 `git fetch` 和 `git merge` 命令的组合。为了使提交历史记录维持线性，推荐使用 `git pull --rebase` 命令。
 
     :::note
     在变基之前，本地的文件是不可以有变更的。如果有的话，可以通过 `git stash` 命令暂存变更货在合适的情况下直接提交或删除变更内容。
