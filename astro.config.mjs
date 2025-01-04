@@ -81,11 +81,11 @@ export default defineConfig({
 					autogenerate: { directory: "starlight-dev" },
 					collapsed: true,
 				},
-				{
-					label: "Soybean 基础创作",
-					autogenerate: { directory: "soybean-basis-dev" },
-					collapsed: true,
-				},
+				// {
+				// 	label: "Soybean 基础创作",
+				// 	autogenerate: { directory: "soybean-basis-dev" },
+				// 	collapsed: true,
+				// },
 				{
 					label: "LCDP 开发实践",
 					autogenerate: { directory: "low-code-dev-platform" },
