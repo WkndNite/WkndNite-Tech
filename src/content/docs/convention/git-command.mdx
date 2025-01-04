@@ -127,7 +127,14 @@ git push # 推送代码到远程仓库
     git swithc -c new_branch
     git switch -c new_branch --track origin/remote_branch
     git switch - # 切换到上一个分支
+    ```
+    ```bash
     git restore file
+    git restore --source=commit_id file
+    git restore --staged file
+    git restore --source=commit_id .
+    git restore -w -- * # 恢复所有删除的文件
+    git restore --staged --worktree file # 丢弃
     ```
 
 ## 推荐操作 :badge[recommend]{variant=caution}
