@@ -14,48 +14,13 @@ sidebar:
 ---
 
 import { Steps } from "@astrojs/starlight/components";
-import { Tabs, TabItem } from "@astrojs/starlight/components";
 import { PackageManagers } from "starlight-package-managers";
 
 <Steps>
-
 1.  搭建项目：
     <PackageManagers type="create" pkg="vue@latest" />
 2.  在提示的各选项中选择想要的配置。
 3.  安装依赖并启动开发服务器：
-
-        <Tabs>
-        <TabItem label="npm">
-            ```bash
-            cd <your-project-name>
-            npm install
-            npm run dev
-            ```
-        </TabItem>
-        <TabItem label="pnpm">
-            ```bash
-            cd <your-project-name>
-            pnpm install
-            pnpm run dev
-            ```
-        </TabItem>
-        <TabItem label="yarn">
-            ```bash
-            cd <your-project-name>
-            yarn
-            yarn dev
-            ```
-        </TabItem>
-        <TabItem label="bun">
-            ```bash
-            cd <your-project-name>
-            bun install
-            bun run dev
-            ```
-        </TabItem>
-
-    </Tabs>
-
 </Steps>
 ## 通过CDN引入
 
