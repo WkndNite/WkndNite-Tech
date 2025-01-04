@@ -3,10 +3,12 @@ import starlight from "@astrojs/starlight";
 import starlightImageZoom from "starlight-image-zoom";
 import catppuccin from "starlight-theme-catppuccin";
 import starlightViewModes from "starlight-view-modes";
+import starlightHeadingBadges from "starlight-heading-badges";
 export default defineConfig({
 	integrations: [
 		starlight({
 			plugins: [
+				starlightHeadingBadges(),
 				starlightImageZoom(),
 				catppuccin({ dark: "mocha-blue", light: "latte-blue" }),
 				starlightViewModes({
