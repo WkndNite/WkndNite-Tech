@@ -4,12 +4,15 @@ import starlightImageZoom from "starlight-image-zoom";
 import catppuccin from "starlight-theme-catppuccin";
 import starlightViewModes from "starlight-view-modes";
 import starlightHeadingBadges from "starlight-heading-badges";
+import liveCode from "astro-live-code";
+
 export default defineConfig({
 	integrations: [
+		liveCode(),
 		starlight({
 			plugins: [
-				starlightHeadingBadges(),
 				starlightImageZoom(),
+				starlightHeadingBadges(),
 				catppuccin({ dark: "mocha-blue", light: "latte-blue" }),
 				starlightViewModes({
                     zenModeEnabled: true,

@@ -9,7 +9,9 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@vitejs/plugin-vue": "^5.2.1",
     "astro": "^5.1.1",
+    "astro-live-code": "^0.0.5",
     "starlight-heading-badges": "^0.4.0",
     "starlight-image-zoom": "^0.10.0",
     "starlight-package-managers": "^0.8.1",
