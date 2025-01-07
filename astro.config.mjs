@@ -15,10 +15,8 @@ export default defineConfig({
 				starlightHeadingBadges(),
 				catppuccin({ dark: "mocha-green", light: "latte-blue" }),
 				starlightViewModes({
-                    zenModeShowTableOfContents: true,
-                    zenModeShowSwitchInTableOfContents: false,
-					presentationModeShowSwitchInHeader:false,
-                }),
+					presentationModeShowSwitchInHeader: false,
+				}),
 			],
 			tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 3 },
 			title: "WkndNite Tech",
