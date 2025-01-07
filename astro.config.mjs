@@ -13,16 +13,9 @@ export default defineConfig({
 			plugins: [
 				starlightImageZoom(),
 				starlightHeadingBadges(),
-				catppuccin({ dark: "mocha-blue", light: "latte-blue" }),
+				catppuccin({ dark: "mocha-green", light: "latte-blue" }),
 				starlightViewModes({
-                    zenModeEnabled: true,
-                    zenModeCloseButtonPosition: "top-right",
-                    zenModeShowHeader: false,
-                    zenModeShowSidebar: false,
                     zenModeShowTableOfContents: true,
-                    zenModeShowFooter: true,
-                    zenModeShowSwitchInHeader: true,
-                    zenModeShowSwitchInHeaderMobile: true,
                     zenModeShowSwitchInTableOfContents: false,
 					presentationModeShowSwitchInHeader:false,
                 }),
